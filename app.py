@@ -1,5 +1,5 @@
 from flask import *
-from Models.Studio import *
+from controllers.StudioController import StudioController
 from connection import Base, session
 
 app = Flask(__name__)
@@ -17,16 +17,10 @@ def root() :
 def docs() : 
     return render_template('docs.html')
 
-@app.route("/studios")
+@app.route("/studios",methods=['POST'])
 def studios() : 
-    return StudioModel.displayStudio()
+   result = StudioController.displayStudios()
+   return result
 
-# # Open connection to database (unused)
-# try :
-#     connection = conn.connect_to_db()
-#     print('Connection success')
-# except :
-#     print('Connection failed')
 
-# def test() :
 
