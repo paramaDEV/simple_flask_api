@@ -1,5 +1,5 @@
 from sqlalchemy import *
-from sqlalchemy.orm import sessionmaker, declarative_base, DeclarativeBase
+from sqlalchemy.orm import sessionmaker, declarative_base, DeclarativeBase, Session
 from flask_sqlalchemy import SQLAlchemy
 
  
@@ -8,13 +8,16 @@ DB_USER = "postgres"
 DB_PASS = "admin"
 DB_HOST = "localhost"
 DB_PORT = "5432"
+conn_str='postgresql'+'://'+DB_USER+':'+DB_PASS+'@'+DB_HOST+':'+DB_PORT+'/'+DB_NAME
 
-# Start of cara lama
-engine = create_engine('postgresql'+'://'+DB_USER+':'+DB_PASS+'@'+DB_HOST+':'+DB_PORT+'/'+DB_NAME, echo=False)
 
-Session = sessionmaker(engine)
-session = Session()
+engine = create_engine(conn_str, echo=True)
 
-Base = declarative_base()
-# End of cara lama
+session = Session(engine)
+
+class Base(DeclarativeBase):
+    pass
+
+db = SQLAlchemy(model_class=Base)
+
 
