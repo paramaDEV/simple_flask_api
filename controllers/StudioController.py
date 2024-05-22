@@ -7,3 +7,6 @@ class StudioController :
     
     def insertStudio(param):
         studioModel.insertStudio(param)
+
+    def updateStudio(param):
+        studioModel.updateStudio(param)

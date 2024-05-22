@@ -40,6 +40,13 @@ def insertStudio() :
     StudioController.insertStudio(param)
     return make_response(jsonify({'message':'data created successfully','status':200}),200)
 
-
+@app.route("/studio/update/",methods=['PUT'])
+def updateStudio() : 
+    param = {
+        'id' : request.form['id'],
+        'capacity' : request.form['capacity']
+    }
+    StudioController.updateStudio(param)
+    return make_response(jsonify({'message':'data updated successfully','status':200}),200)
 
 
