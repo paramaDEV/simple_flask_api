@@ -2,7 +2,7 @@ from models.Studio import *
 
 studioModel = StudioModel()
 class StudioController :
-    def displayStudio(id):
+    def displayStudio(id=0):
        return studioModel.displayStudio(id)
     
     def insertStudio(param):

@@ -3,6 +3,7 @@ from sqlalchemy import select, union,null, Column, Integer, String, update, Fore
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from GlobalVariable import formatSelectedData
 from models.Cinema import Cinema
+from models. Studio_status import Studio_status
 
 class Studio(Base):
     __tablename__ = 'studio'
@@ -14,14 +15,18 @@ class Studio(Base):
 
 class StudioModel :    
     @staticmethod
-    def displayStudio(studio_id = 0):
+    def displayStudio(studio_id):
         if studio_id == 0 :
             # studios = session.query(Studio).all() #without join
-            studios = session.query(Studio,Cinema).filter(Studio.cinema_id==Cinema.id).all() #with join
+            studios = session.query(Studio,Cinema, Studio_status ).filter(Studio.cinema_id==Cinema.id, Studio_status.id==Studio.status).all() #with join
+            print(type(studios))
             result = formatSelectedData(studios)
             result = result
         else :
-            studio =  session.query(Studio, Cinema).filter(Studio.id==studio_id, Cinema.id == Studio.cinema_id).order_by(Studio.id).first() # with join
+            studio =  session.query(Studio, Cinema, Studio_status).filter(Studio.id==studio_id, 
+                                                                          Cinema.id == Studio.cinema_id,
+                                                                          Studio_status.id == Studio.status
+                                                                          ).order_by(Studio.id).first() # with join
             result = formatSelectedData(studio)
         return result
     

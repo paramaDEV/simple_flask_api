@@ -1,5 +1,6 @@
 from flask import *
 from controllers.StudioController import StudioController
+from controllers.CinemaController import CinemaController
 from connection import Base, session, db, conn_str
 
 app = Flask(__name__)
@@ -21,13 +22,13 @@ def docs() :
 
 @app.route("/studios",methods=['GET'])
 def studios() : 
-   result = StudioController.displayStudio(0)
-   return result
+   result = StudioController.displayStudio()
+   return make_response(jsonify(result))
 
 @app.route("/studio/<id>",methods=['GET'])
 def studio(id) : 
    result = StudioController.displayStudio(id)
-   return result
+   return make_response(jsonify(result))
 
 @app.route("/studio/add/",methods=['POST'])
 def insertStudio() : 
@@ -50,3 +51,7 @@ def updateStudio() :
     return make_response(jsonify({'message':'data updated successfully','status':200}),200)
 
 
+@app.route("/cinemas")
+def cinemas() :
+   result = CinemaController.displayCinema()
+   return make_response(jsonify(result))
